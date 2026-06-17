@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import imgt from "../assets/71xuH19n5YL._AC_UF1000,1000_QL80_.jpg";
 import imgt1 from "../assets/istockphoto-491090528-612x612.jpg";
 import imgt2 from "../assets/toor-dal.jpg";
@@ -24,28 +25,36 @@ export default function Products() {
   const [productsList] = useState(products);
   const [cart, setCart] = useState([]);
   const [search, setSearch] = useState("");
-
-  // ✅ RESPONSIVE FIX STATE
   const [screen, setScreen] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => setScreen(window.innerWidth);
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const addToCart = (p) => setCart([...cart, p]);
+  const addToCart = (p) => {
+    setCart((prev) => [...prev, p]);
+  };
 
+  // ✅ FIXED WHATSAPP FUNCTION
   const orderWhatsApp = (p) => {
-    const msg = `Hello, I want to order:
-Product: ${p.name}
-Price: ₹${p.price}`;
+    const phone = "919104144971"; // 🔥 MUST be full number with country code
 
-    window.open(
-      `https://wa.me/9104144971?text=${encodeURIComponent(msg)}`,
-      "_blank"
-    );
+    const msg = `
+🛒 NEW ORDER
+
+📦 Product: ${p.name}
+💰 Price: ₹${p.price}
+
+🙏 Thank you
+    `;
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+
+    console.log("Opening:", url);
+
+    window.location.href = url; // 🔥 BEST WORKING METHOD
   };
 
   const filtered = productsList.filter((p) =>
@@ -70,7 +79,8 @@ Price: ₹${p.price}`;
           left: "-120px",
           width: "300px",
           height: "300px",
-          background: "radial-gradient(circle, rgba(0,255,150,0.25), transparent 70%)",
+          background:
+            "radial-gradient(circle, rgba(0,255,150,0.25), transparent 70%)",
           filter: "blur(60px)",
           animation: "moveGlow 6s infinite ease-in-out"
         }}
@@ -82,8 +92,7 @@ Price: ₹${p.price}`;
           textAlign: "center",
           color: "white",
           marginBottom: "15px",
-          fontSize: "28px",
-          textShadow: "0 0 15px rgba(0,255,150,0.3)"
+          fontSize: "28px"
         }}
       >
         Our Premium Products
@@ -106,18 +115,17 @@ Price: ₹${p.price}`;
         }}
       />
 
-      {/* ✅ RESPONSIVE GRID */}
+      {/* GRID */}
       <div
         style={{
           display: "grid",
           gap: "20px",
-
           gridTemplateColumns:
             screen >= 1024
-              ? "repeat(4, 1fr)"   // desktop
+              ? "repeat(4, 1fr)"
               : screen >= 768
-              ? "repeat(2, 1fr)"   // tablet
-              : "repeat(1, 1fr)"   // mobile
+              ? "repeat(2, 1fr)"
+              : "repeat(1, 1fr)"
         }}
       >
         {filtered.map((p) => {
@@ -128,128 +136,76 @@ Price: ₹${p.price}`;
               key={p.id}
               style={{
                 background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "16px",
                 overflow: "hidden",
-                backdropFilter: "blur(15px)",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-                transition: "0.3s",
-                cursor: "pointer"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-10px) scale(1.03)";
-                e.currentTarget.style.boxShadow =
-                  "0 20px 50px rgba(0,255,150,0.25)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0) scale(1)";
-                e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
+                color: "white",
+                textAlign: "center",
+                paddingBottom: "15px",
+                transition: "0.3s"
               }}
             >
-              {/* IMAGE */}
-              <div style={{ position: "relative" }}>
-                <img
-                  src={p.img}
-                  alt={p.name}
-                  style={{
-                    width: "100%",
-                    height: "180px",
-                    objectFit: "cover"
-                  }}
-                />
+              <img
+                src={p.img}
+                alt={p.name}
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover"
+                }}
+              />
 
-                <span
+              <h4>{p.name}</h4>
+              <p>⭐ {p.rating}</p>
+
+              <p>
+                <del>₹{p.price}</del> <b>₹{finalPrice.toFixed(0)}</b>
+              </p>
+
+              <div style={{ display: "flex", gap: "8px", padding: "0 10px" }}>
+                <button
+                  onClick={() => addToCart(p)}
                   style={{
-                    position: "absolute",
-                    top: "10px",
-                    left: "10px",
-                    background: "red",
-                    color: "white",
-                    padding: "5px 10px",
+                    flex: 1,
+                    padding: "8px",
+                    border: "none",
                     borderRadius: "8px",
-                    fontSize: "12px"
+                    background: "#444",
+                    color: "white"
                   }}
                 >
-                  {p.discount}% OFF
-                </span>
-              </div>
+                  Add
+                </button>
 
-              {/* INFO */}
-              <div style={{ padding: "15px", textAlign: "center", color: "white" }}>
-                <h4 style={{ margin: "5px 0" }}>{p.name}</h4>
-                <p>⭐ {p.rating}</p>
-
-                <p>
-                  <del style={{ opacity: 0.6 }}>₹{p.price}</del>{" "}
-                  <b>₹{finalPrice.toFixed(0)}</b>
-                </p>
-
-                {/* BUTTONS */}
-                <div style={{ display: "flex", gap: "8px", marginTop: "10px" }}>
-                  <button
-                    onClick={() => addToCart(p)}
-                    style={{
-                      flex: 1,
-                      padding: "8px",
-                      border: "none",
-                      borderRadius: "8px",
-                      background: "rgba(0,255,150,0.2)",
-                      color: "white",
-                      transition: "0.2s"
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.target.style.background = "rgba(0,255,150,0.4)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.background = "rgba(0,255,150,0.2)")
-                    }
-                  >
-                    Add to Cart
-                  </button>
-
-                  <button
-                    onClick={() => orderWhatsApp(p)}
-                    style={{
-                      flex: 1,
-                      padding: "8px",
-                      border: "none",
-                      borderRadius: "8px",
-                      background: "#25D366",
-                      color: "white",
-                      transition: "0.2s"
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.target.style.boxShadow =
-                        "0 0 15px rgba(37,211,102,0.5)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.boxShadow = "none")
-                    }
-                  >
-                    WhatsApp
-                  </button>
-                </div>
+                <button
+                  onClick={() => orderWhatsApp(p)}
+                  style={{
+                    flex: 1,
+                    padding: "8px",
+                    border: "none",
+                    borderRadius: "8px",
+                    background: "#25D366",
+                    color: "white"
+                  }}
+                >
+                  WhatsApp
+                </button>
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* CART */}
-      <h4 style={{ textAlign: "center", color: "white", marginTop: "30px" }}>
+      <h4 style={{ textAlign: "center", color: "white", marginTop: "20px" }}>
         🛒 Cart Items: {cart.length}
       </h4>
 
-      {/* ANIMATION */}
-      <style>
-        {`
-          @keyframes moveGlow {
-            0% { transform: translate(0,0); }
-            50% { transform: translate(80px,60px); }
-            100% { transform: translate(0,0); }
-          }
-        `}
-      </style>
+      <style>{`
+        @keyframes moveGlow {
+          0% { transform: translate(0,0); }
+          50% { transform: translate(80px,60px); }
+          100% { transform: translate(0,0); }
+        }
+      `}</style>
     </section>
   );
 }
