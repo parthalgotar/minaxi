@@ -7,7 +7,7 @@ export default function OrderSection() {
   const [quantity, setQuantity] = useState("");
 
   const sendOrder = () => {
-    const phone = "919904966566";
+    const phone = "919104144971";
 
     if (!name || !mobile || !product || !quantity) {
       alert("Please fill all fields");
