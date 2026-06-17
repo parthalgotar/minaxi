@@ -174,4 +174,3 @@ const sendOrder = () => {
       `}</style>
     </section>
   );
-}
