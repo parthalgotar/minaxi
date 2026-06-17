@@ -7,8 +7,10 @@ export default function OrderSection() {
   const [quantity, setQuantity] = useState("");
 
   const sendOrder = () => {
+    // ✅ IMPORTANT: country code + number (NO + sign)
     const phone = "919104144971";
 
+    // validation
     if (!name || !mobile || !product || !quantity) {
       alert("Please fill all fields");
       return;
@@ -22,12 +24,13 @@ export default function OrderSection() {
 🌾 Product: ${product}
 ⚖️ Quantity: ${quantity}
 
-🙏 Thank you
+🙏 Thank you for your order
     `;
 
-    const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+    // ✅ BEST WORKING LINK (mobile + desktop)
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
-    // BEST FOR MOBILE + DESKTOP
+    // open WhatsApp
     window.location.href = url;
   };
 
@@ -44,24 +47,30 @@ export default function OrderSection() {
 
       <div className="form-box">
         <input
+          type="text"
           placeholder="Your Full Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
         <input
+          type="tel"
           placeholder="Mobile Number"
           value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
+          onChange={(e) =>
+            setMobile(e.target.value.replace(/\D/g, "")) // only numbers
+          }
         />
 
         <input
+          type="text"
           placeholder="Product Name (Wheat / Rice / Pulses)"
           value={product}
           onChange={(e) => setProduct(e.target.value)}
         />
 
         <input
+          type="text"
           placeholder="Quantity (Kg / Bags)"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
@@ -150,10 +159,11 @@ export default function OrderSection() {
           color: white;
           font-weight: bold;
           cursor: pointer;
+          transition: 0.3s;
         }
 
         .btn:hover {
-          transform: scale(1.03);
+          transform: scale(1.04);
         }
       `}</style>
     </section>
