@@ -8,30 +8,31 @@ export default function Home() {
         backgroundImage: `url(${homeImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "80vh",
+        minHeight: "100dvh",
         position: "relative",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         color: "white",
-        textAlign: "center"
+        textAlign: "center",
+        padding: "20px"
       }}
     >
-      {/* DARK OVERLAY */}
+      {/* OVERLAY */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(0,0,0,0.65)"
+          background: "rgba(0,0,0,0.65)",
+          pointerEvents: "none"
         }}
-      ></div>
+      />
 
       {/* CONTENT */}
-      <div style={{ zIndex: 2, maxWidth: "800px", padding: "20px" }}>
-
+      <div style={{ zIndex: 2, maxWidth: "800px" }}>
         <h1
           style={{
-            fontSize: "2.3rem",
+            fontSize: "2.2rem",
             fontWeight: "800",
             letterSpacing: "2px",
             textShadow: "0px 0px 15px rgba(0,255,120,0.5)"
@@ -42,7 +43,7 @@ export default function Home() {
 
         <p
           style={{
-            fontSize: "1.3rem",
+            fontSize: "1.2rem",
             marginTop: "15px",
             color: "#f1f1f1"
           }}
@@ -60,10 +61,11 @@ export default function Home() {
           Quality grains directly from APMC market at best wholesale price
         </p>
 
-        {/* BUTTON */}
+        {/* WHATSAPP BUTTON (SAFE & WORKING) */}
         <a
-          href="https://wa.me/9904966566"
+          href="https://api.whatsapp.com/send?phone=919904966566&text=Hello%20I%20want%20to%20place%20an%20order"
           target="_blank"
+          rel="noreferrer"
           style={{
             display: "inline-block",
             marginTop: "25px",
@@ -78,7 +80,6 @@ export default function Home() {
         >
           📱 Order on WhatsApp
         </a>
-
       </div>
     </section>
   );
