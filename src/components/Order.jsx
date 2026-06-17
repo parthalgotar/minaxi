@@ -1,4 +1,36 @@
+import { useState } from "react";
+
 export default function OrderSection() {
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [product, setProduct] = useState("");
+  const [quantity, setQuantity] = useState("");
+
+  const sendOrder = () => {
+    const phone = "919904966566";
+
+    if (!name || !mobile || !product || !quantity) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const message = `
+🛒 NEW ORDER
+
+👤 Name: ${name}
+📱 Mobile: ${mobile}
+🌾 Product: ${product}
+⚖️ Quantity: ${quantity}
+
+🙏 Thank you
+    `;
+
+    const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+
+    // BEST FOR MOBILE + DESKTOP
+    window.location.href = url;
+  };
+
   return (
     <section id="order" className="order-section">
       <div className="glow glow1" />
@@ -11,18 +43,33 @@ export default function OrderSection() {
       </p>
 
       <div className="form-box">
-        <input placeholder="Your Full Name" />
-        <input placeholder="Mobile Number (WhatsApp Active)" />
-        <input placeholder="Product Name (Wheat / Rice / Pulses)" />
-        <input placeholder="Quantity (Kg / Bags)" />
+        <input
+          placeholder="Your Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-        <a
-          href="https://wa.me/919904966566"
-          target="_blank"
-          className="btn"
-        >
+        <input
+          placeholder="Mobile Number"
+          value={mobile}
+          onChange={(e) => setMobile(e.target.value)}
+        />
+
+        <input
+          placeholder="Product Name (Wheat / Rice / Pulses)"
+          value={product}
+          onChange={(e) => setProduct(e.target.value)}
+        />
+
+        <input
+          placeholder="Quantity (Kg / Bags)"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+        />
+
+        <button className="btn" onClick={sendOrder}>
           📲 SEND ORDER ON WHATSAPP
-        </a>
+        </button>
       </div>
 
       <style>{`
@@ -34,7 +81,6 @@ export default function OrderSection() {
           background: #ffffff;
         }
 
-        /* ===== BIG PREMIUM GLOW ===== */
         .glow {
           position: absolute;
           width: 420px;
@@ -60,126 +106,54 @@ export default function OrderSection() {
         }
 
         @keyframes floatGlow {
-          0%, 100% {
-            transform: translate(0,0) scale(1);
-          }
-          50% {
-            transform: translate(80px, -60px) scale(1.25);
-          }
+          0%, 100% { transform: translate(0,0) scale(1); }
+          50% { transform: translate(80px, -60px) scale(1.25); }
         }
 
-        /* ===== MAIN TITLE (HEAVY IMPACT) ===== */
         .title {
-          font-size: 3.2rem;
+          font-size: 3rem;
           font-weight: 900;
-          letter-spacing: 2px;
-
-          background: linear-gradient(90deg, #111, #444);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-
           margin-bottom: 10px;
-
-          position: relative;
-          z-index: 2;
-
-          animation: fadeDown 0.8s ease;
         }
 
-        /* ===== SUBTITLE ===== */
         .subtitle {
-          font-size: 1.1rem;
+          margin-bottom: 40px;
           color: #555;
-          margin-bottom: 55px;
-          position: relative;
-          z-index: 2;
         }
 
-        /* ===== FORM BOX (ULTRA PREMIUM) ===== */
         .form-box {
-          max-width: 560px;
+          max-width: 520px;
           margin: auto;
-          padding: 35px;
-          border-radius: 22px;
-
-          background: #ffffff;
-          border: 1px solid rgba(0,0,0,0.08);
-
-          box-shadow:
-            0 25px 60px rgba(0,0,0,0.12),
-            0 5px 15px rgba(0,0,0,0.05);
-
+          padding: 30px;
+          border-radius: 20px;
+          background: #fff;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.1);
           position: relative;
           z-index: 2;
-
-          transition: 0.4s ease;
         }
 
-        .form-box:hover {
-          transform: translateY(-10px) scale(1.02);
-          box-shadow:
-            0 35px 90px rgba(0,0,0,0.18);
-        }
-
-        /* ===== INPUTS (BOLD LOOK) ===== */
         .form-box input {
           width: 100%;
-          padding: 14px 16px;
-          margin-bottom: 16px;
-
-          border-radius: 12px;
+          padding: 12px;
+          margin-bottom: 14px;
+          border-radius: 10px;
           border: 1px solid #ddd;
-
-          font-size: 15px;
-          font-weight: 500;
-
           outline: none;
-          transition: 0.3s;
         }
 
-        .form-box input:focus {
-          border-color: #25d366;
-          box-shadow: 0 0 12px rgba(37,211,102,0.25);
-          transform: scale(1.02);
-        }
-
-        /* ===== BUTTON (HEAVY CTA) ===== */
         .btn {
-          display: inline-block;
           width: 100%;
           padding: 14px;
-
-          border-radius: 14px;
-
+          border: none;
+          border-radius: 12px;
           background: linear-gradient(135deg, #25d366, #1db954);
           color: white;
-
-          font-size: 16px;
-          font-weight: 800;
-          letter-spacing: 1px;
-
-          text-decoration: none;
-
-          box-shadow: 0 20px 40px rgba(37,211,102,0.3);
-
-          transition: 0.3s;
+          font-weight: bold;
+          cursor: pointer;
         }
 
         .btn:hover {
-          transform: scale(1.06);
-          box-shadow: 0 25px 60px rgba(37,211,102,0.45);
-        }
-
-        /* ===== ANIMATION ===== */
-        @keyframes fadeDown {
-          from {
-            opacity: 0;
-            transform: translateY(-25px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          transform: scale(1.03);
         }
       `}</style>
     </section>
