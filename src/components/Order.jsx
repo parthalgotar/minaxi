@@ -6,9 +6,15 @@ export default function OrderSection() {
   const [product, setProduct] = useState("");
   const [quantity, setQuantity] = useState("");
 
-  const sendOrder = () => {
-    // ✅ IMPORTANT: country code + number (NO + sign)
-    const phone = "919104144971";
+const sendOrder = () => {
+  const phone = "919104144971";
+
+  const message = "Hello, I want to place an order";
+
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
+};
 
     // validation
     if (!name || !mobile || !product || !quantity) {
