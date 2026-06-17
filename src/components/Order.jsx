@@ -6,7 +6,7 @@ export default function OrderSection() {
   const [product, setProduct] = useState("");
   const [quantity, setQuantity] = useState("");
 
-const sendOrder = () => {
+const sendOrder = () => {{
   const phone = "919104144971";
 
   const message = "Hello, I want to place an order";
@@ -174,3 +174,4 @@ const sendOrder = () => {
       `}</style>
     </section>
   );
+}
