@@ -4,13 +4,12 @@ export default function PaymentSection() {
   const upiId = "parthalgotar15@okaxis";
   const amount = "500";
 
-  const handlePayment = () => {
-    window.open(
-      `upi://pay?pa=parthalgotar15@okaxis&pn=Parth Algotar&am=500&cu=INR`,
-      "_self"
-    );
-  };
-
+const handlePayment = () => {
+  window.open(
+    "tez://upi/pay?pa=parthalgotar15@okaxis&pn=Parth%20Algotar&am=500&cu=INR",
+    "_self"
+  );
+};
   return (
     <section id="payment" className="payment-section">
       <div className="payment-container">
