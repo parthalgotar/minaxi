@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Products from "./components/Products";
-import Admin from "./components/Admin";
+// import Admin from "./components/Admin";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -21,7 +21,7 @@ function App() {
       <Navbar />
       <Home />
       <Products />
-       <Admin />
+       {/* <Admin /> */}
        <Order />
        <Delivery />
        <Review />
