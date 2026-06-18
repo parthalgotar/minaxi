@@ -9,7 +9,8 @@ import Order from "./components/Order";
 import Delivery from "./components/Delivery";
 import Review from "./components/Review";
 import Proces1 from "./components/Proces1";
-import Banner from "./components/Banner";
+import Banner from "./components/Banner"; 
+import Payment from "./components/Payment"; 
 
 
 
@@ -26,6 +27,7 @@ function App() {
        <Review />
        <Proces1 />
        <Banner />
+       <Payment />
        
 
 
