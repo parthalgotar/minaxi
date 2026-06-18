@@ -38,6 +38,16 @@ const handlePayment = () => {
         <button className="pay-btn" onClick={handlePayment}>
           💳 Pay Now
         </button>
+        <p
+  style={{
+    marginTop: "15px",
+    color: "#666",
+    fontSize: "14px",
+    fontWeight: "500",
+  }}
+>
+  ✅ After completing the payment, please send the payment screenshot on WhatsApp for order confirmation.
+</p>
 
         <div className="security">
           🔒 100% Secure Payment
